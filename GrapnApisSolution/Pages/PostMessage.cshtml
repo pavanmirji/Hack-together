@@ -1,0 +1,121 @@
+﻿@page
+@model PostMessageModel
+@{
+    ViewData["Title"] = "Post Message on Teams Channel";
+}
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<style>
+      body {
+        padding: 20px 0;
+        background: #f2f5f8;
+      }
+ </style>
+
+
+<div class="container row" style="
+    background: #005F86;
+    color: white;
+    padding: 5px;
+text-align: center;
+font-size: 20px;
+    margin-bottom: 20px;
+">@ViewData["Title"]</div>
+
+<div class="text-center">
+    
+</div>
+
+<script type="text/javascript">  
+    function SelectedIndexChanged() {
+        var teamSelect = document.getElementById('TeamId');
+        var TeamIdValue = teamSelect.value;
+        $("#ChannelId").empty();
+        $("#ChannelId").append("<option value=''>Select Channel</option>");
+        
+        $.getJSON('?handler=Channels&TeamId=' + TeamIdValue, (data) => {
+            console.log(data);
+                $.each(data, function (i, item) {
+                    $("#ChannelId").append(`<option value="${item.value}">${item.text}</option>`);
+            }); 
+    });
+    }
+
+    function submitFormData(){
+        var teamSelect = document.getElementById('TeamId');
+        var channelSelect = document.getElementById('ChannelId');
+        var messageSelect = document.getElementById('TeamsMessage_TeamsMsg');
+
+        if(teamSelect == null || channelSelect == null || messageSelect == null || teamSelect == "" || channelSelect == "" || messageSelect == ""){
+            alert('Please select correct value');
+        }
+        else{
+            var TeamIdValue = teamSelect.value;
+            var ChannelIdValue = channelSelect.value;
+            var messageValue = document.getElementById('TeamsMessage_TeamsMsg').value;
+            if(ChannelIdValue == "Select Channel"){
+                alert('Please select correct Channel value');
+            }else{
+                window.demoForm.submit();
+            }
+        }
+    }
+</script>  
+
+<form method="post" name="demoForm">
+    <div class="container row" style="
+    margin-bottom: 20px;
+    background: #B3B539 !important;
+    padding: 10px;
+    font-weight: bold;
+">
+        <div class="col-2" style="
+    padding-top: 5px;
+">
+        <label>Select Team</label>
+        </div>
+        <div class="col-4">
+        <select asp-for="TeamId" asp-items="@Model.TeamsList" onchange="SelectedIndexChanged()" style="
+    width: 100%;
+    height: 35px;
+"></select>
+        </div>
+        <div class="col-2" style="
+    padding-top: 5px;
+">
+        <label>Select Channel</label>
+        </div>
+        <div class="col-4">
+        <select asp-for="ChannelId" style="
+    width: 100%;
+    height: 35px;
+"></select>
+        </div>
+    </div>
+<div class="container row" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; padding:20px;">
+    <div class="col-2">
+        <label class="fw-bold">Enter Message:</label>
+    </div>
+    <div class="col-6">
+        <textarea asp-for="TeamsMessage.TeamsMsg" placeholder="Type a message to post..." class="text-xl-start" style="
+    width: 100%;
+    height: -webkit-fill-available;
+"></textarea>
+    </div>
+    <div class="col-4">
+        <img src="/AdminA1.jpg" alt="Hack Together banner" style="max-width: 100%">
+    </div>
+</div>
+
+<div class="container row" style="padding-top: 10px">
+    <div class="col-5">
+
+    </div>
+    <div class="col-2">
+        <input type="button" value="Post a message" class="btn form-control" style="background:#658D1B;color:white" onclick="submitFormData()"/>
+    </div>
+    <div class="col-5">
+
+    </div>
+</div>
+</form>
+

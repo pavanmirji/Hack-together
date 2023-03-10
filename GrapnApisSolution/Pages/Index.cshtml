@@ -1,0 +1,53 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+      body {
+        padding: 20px 0;
+        background: #f2f5f8;
+      }
+
+      .card-img-top{
+    height: 200px;
+}
+ </style>
+
+<div class="container row" style="
+    margin-top: 4%;
+">
+    <div class="col-4">
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="/banner - Copy.png" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Upcoming Meetings</h5>
+    <p class="card-text">Use this tile to check the Upcoming meetings for Today.</p>
+    <a asp-page="Meetings" class="btn btn-primary">Check Meetings</a>
+  </div>
+</div>
+</div>
+
+<div class="col-4">
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="/AdminA1.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Teams Channel Message</h5>
+    <p class="card-text">Use this tile to Post a Message to Teams Channel.</p>
+    <a asp-page="PostMessage" class="btn btn-primary">Post a Message</a>
+  </div>
+</div>
+</div>
+
+<div class="col-4">
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="/ImageW1.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Teams Meeting</h5>
+    <p class="card-text">Use this tile to Create a Teams meeting.</p>
+    <a asp-page="TeamsMeeting" class="btn btn-primary">Create a Meeting</a>
+  </div>
+</div>
+</div>
+</div>
